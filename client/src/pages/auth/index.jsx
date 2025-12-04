@@ -1,34 +1,54 @@
 import CommonForm from "@/components/common-form";
 import { signInFormControls, signUpFormControls } from "@/config";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-
 import { GraduationCap } from "lucide-react";
 import React, { use, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { AuthContext } from "@/context/auth-context";
 
 function AuthPage() {
   const [activeTab, setActiveTab] = useState("signin");
-  const{signInFormData, setSignInFormData , signUpFormData, setSignUpFormData}=useContext(AuthContext)
+
+
+  const {
+    signInFormData,
+    setSignInFormData,
+    signUpFormData,
+    setSignUpFormData,
+    handleRegisterUser,
+    handleLoginUser
+  } = useContext(AuthContext);
+
+  
 
   function handleTabChange(value) {
     setActiveTab(value);
   }
 
-  function checkIfSignInFormIsValid(){
-    return signInFormData && signInFormData.userEmail!=='' && signInFormData.password!==''
-    } 
-    function checkIfSignUpFormIsValid(){
-      return (
-        signUpFormData &&
-        signUpFormData.userName !== "" &&
-        signUpFormData.userEmail !== "" &&
-        signUpFormData.password !== ""
-      );
-    }
+  function checkIfSignInFormIsValid() {
+    return (
+      signInFormData &&
+      signInFormData.userEmail !== "" &&
+      signInFormData.password !== ""
+    );
+  }
+  function checkIfSignUpFormIsValid() {
+    return (
+      signUpFormData &&
+      signUpFormData.userName !== "" &&
+      signUpFormData.userEmail !== "" &&
+      signUpFormData.password !== ""
+    );
+  }
 
-     console.log(signInFormData)
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center border-b ">
@@ -63,6 +83,7 @@ function AuthPage() {
                   formData={signInFormData}
                   setFormData={setSignInFormData}
                   isButtonDisabled={!checkIfSignInFormIsValid()}
+                  handleSubmit={handleLoginUser}
                 />
               </CardContent>
             </Card>
@@ -82,6 +103,7 @@ function AuthPage() {
                   formData={signUpFormData}
                   setFormData={setSignUpFormData}
                   isButtonDisabled={!checkIfSignUpFormIsValid()}
+                  handleSubmit={handleRegisterUser}
                 />
               </CardContent>
             </Card>

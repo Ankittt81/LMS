@@ -2,16 +2,18 @@ require("dotenv").config(); // Load environment variables from .env file
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const authRoutes=require('./routes/auth-routes')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 
-cors({
+app.use(cors({
   origin: process.env.CLIENT_URL,
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Contenet-Type", "Authorization"],
-});
+  allowedHeaders: ["Content-Type", "Authorization"],
+}))
+
 
 app.use(express.json());
 
@@ -23,6 +25,7 @@ mongoose
 
 
   //routes
+  app.use('/auth',authRoutes)
   
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
