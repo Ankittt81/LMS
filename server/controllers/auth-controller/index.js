@@ -45,7 +45,7 @@ const loginUser = async (req, res) => {
     _id:checkUser._id,
     userName:checkUser.userName,
     userEmail:checkUser.userEmail,
-    roll:checkUser.role
+    role:checkUser.role
   },process.env.JWT_SECRET,{expiresIn:'1h'})
 
   return res.status(200).json({
@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
         _id: checkUser._id,
         userName: checkUser.userName,
         userEmail: checkUser.userEmail,
-        roll: checkUser.role,
+        role: checkUser.role,
       },
     },
   });
